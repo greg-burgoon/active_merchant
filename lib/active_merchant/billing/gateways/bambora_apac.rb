@@ -72,11 +72,11 @@ module ActiveMerchant #:nodoc:
         end
       end
 
-      def void(money, authorization, options={})
+      def void(authorization, options={})
         commit('SubmitSingleVoid') do |xml|
           xml.Void do
             xml.Receipt authorization
-            add_amount(xml, money)
+            xml.Amount amount(options[:amount])
             add_credentials(xml, options)
           end
         end
